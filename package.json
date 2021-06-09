@@ -1,0 +1,25 @@
+{
+  "name": "@hd/cache-strategies",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "module": "lib/index.js",
+  "scripts": {
+    "build:es5": "tsc --outDir dist",
+    "build:es6": "tsc --outDir lib -m es6",
+    "build": "npm run build:es5 && npm run build:es6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@192.168.101.206:10022/zhangtong/cache-strategies.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/md5": "^2.3.0",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "md5": "^2.3.0"
+  }
+}
