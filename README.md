@@ -62,7 +62,8 @@
   ![network-only.png](./resources/network-only.png)
 
   ##### cacheFirst:
-    如果缓存中有数据，将使用缓存的数据来满足请求，而 api 将完全不使用。如果没有缓存的数据，请求将由 api 请求来满足，数据将被缓存，以便下一个请求直接从缓存中得到服务。
+
+  如果缓存中有数据，将使用缓存的数据来满足请求，而 api 将完全不使用。如果没有缓存的数据，请求将由 api 请求来满足，数据将被缓存，以便下一个请求直接从缓存中得到服务。
 
   > If there is a Response in the cache, the Request will be fulfilled using the cached response and the network will not be used at all. If there isn't a cached response, the Request will be fulfilled by a network request and the response will be cached so that the next request is served directly from the cache.
 
