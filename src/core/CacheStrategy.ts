@@ -5,7 +5,7 @@ import { validateCacheFunc } from "../validator";
 import { mergeConfig } from "../utils";
 
 class CacheStrategy {
-  protected config: CacheStrategyConfig;
+  config: CacheStrategyConfig;
   constructor(config?: Partial<Omit<CacheStrategyConfig, "currentSaveKey">>) {
     const { adapter, ...others } = config || {};
     this.config = {
@@ -163,7 +163,7 @@ class CacheStrategy {
     };
   }
 
-  // 缓存和接口竞速优先，谁先拿到结果用谁的
+  // 缓存和接口竞速优先，谁先拿到结果用谁的，同时会更新缓存，慎用
   // 依赖 `Promise.any`，请自行打好补丁
   cacheAndApiRace(
     fn: Function,
@@ -173,7 +173,10 @@ class CacheStrategy {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
       const result = await Promise.any([
-        fn(...args),
+        Promise.resolve(fn(...args)).then((data) => {
+          this.validateAndCache(_config, saveKey, data);
+          return data;
+        }),
         _config.adapter.getItem(saveKey),
       ]);
       this.validateAndCache(_config, saveKey, result);

@@ -2,7 +2,7 @@ import webStorage from "../../src/adapters/web";
 
 describe("webStorage接口测试:", () => {
   beforeAll(() => {
-    console.error = console.log;
+    console.error = () => {}
   });
 
   test("如果key不存在，getItem 返回null:", async () => {

@@ -3,7 +3,7 @@ import { validateKey, validateCacheFunc } from "../src/validator";
 describe("测试默认校验器:", () => {
 
   beforeAll(() => {
-    console.error = console.log
+    console.error = () => {}
   });
 
   test("存储key 校验器，传入的key必须是 string 类型的", () => {

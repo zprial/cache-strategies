@@ -8,7 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "declaration": true,
-    "lib": ["ES2015", "DOM", "ESNext"],
+    "lib": ["ES2015", "DOM", "ESNext", "ES2020.Promise"],
     "resolveJsonModule": true
   },
   "include": ["./src"]
