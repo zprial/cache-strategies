@@ -19,9 +19,9 @@
 
 ### Api
 
-- cacheStrategy: 缓存策略实例
+#### cacheStrategy: 缓存策略实例
 
-  - useConfig: 更改缓存策略实例的配置
+  ##### useConfig: 更改缓存策略实例的配置
 
   ```typescript
   interface CacheStrategyConfig {
@@ -37,7 +37,7 @@
   }
   ```
 
-  - staleWhileRevalidate：
+  ##### staleWhileRevalidate：
 
   如果可用，则使用缓存响应尽快响应请求；如果没有缓存，则返回到网络请求，然后使用网络请求更新缓存。与某些过时而重新验证的实现不同，此策略将始终发出重新验证请求，而不考虑缓存响应的时间。
 
@@ -45,7 +45,7 @@
 
   ![stale-while-revalidate.png](./resources/stale-while-revalidate.png)
 
-  - cacheOnly:
+  ##### cacheOnly:
 
   仅从缓存获得数据，这在工作中不太常见，但如果您有自己的预缓存步骤，这可能会很有用。
 
@@ -53,7 +53,7 @@
 
   ![cache-only.png](./resources/cache-only.png)
 
-  - apiOnly:
+  ##### apiOnly:
 
   如果您需要从 api 满足特定的请求，那么只需使用 apiOnly 策略。
 
@@ -61,14 +61,14 @@
 
   ![network-only.png](./resources/network-only.png)
 
-  - cacheFirst:
+  ##### cacheFirst:
     如果缓存中有数据，将使用缓存的数据来满足请求，而 api 将完全不使用。如果没有缓存的数据，请求将由 api 请求来满足，数据将被缓存，以便下一个请求直接从缓存中得到服务。
 
   > If there is a Response in the cache, the Request will be fulfilled using the cached response and the network will not be used at all. If there isn't a cached response, the Request will be fulfilled by a network request and the response will be cached so that the next request is served directly from the cache.
 
   ![cache-first.png](./resources/cache-first.png)
 
-- apiFirst:
+  ##### apiFirst:
 
   对于频繁更新的请求，网络优先策略是理想的解决方案。默认情况下，它将尝试从网络获取最新的响应。如果请求成功，它将把响应放在缓存中。如果网络返回响应失败，将使用缓存的响应。
 
@@ -76,9 +76,9 @@
 
   ![network-first.png](./resources/network-first.png)
 
-- cacheAndApiRace
-- cacheThenUpdate
-- CacheStrategy Class
+##### cacheAndApiRace
+##### cacheThenUpdate
+##### CacheStrategy Class
 
 ## WIP
 
