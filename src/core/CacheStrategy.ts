@@ -31,7 +31,7 @@ class CacheStrategy {
    * @param args 用户传入的参数
    * @returns
    */
-  mergeConfigAndSavekey(
+  private mergeConfigAndSavekey(
     customConfig: Partial<CacheStrategyConfig>,
     fn: Function,
     args: any[]
@@ -53,7 +53,7 @@ class CacheStrategy {
    * @param {String} saveKey 保存的key
    * @param val 存储的数据
    */
-  async validateAndCache(
+  private async validateAndCache(
     config: CacheStrategyConfig,
     saveKey: string,
     val: any

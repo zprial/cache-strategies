@@ -1,4 +1,4 @@
-import { Adapter } from '../types'
+import { Adapter } from "../types";
 import { validateKey } from "../validator";
 
 const webStoreage: Adapter = {
@@ -20,12 +20,13 @@ const webStoreage: Adapter = {
     if (!validateKey(key, "setItem")) {
       return;
     }
-    localStorage.setItem(key, JSON.stringify(val));
+    return localStorage.setItem(key, JSON.stringify(val));
   },
   async removeItem(key: string) {
     if (!validateKey(key, "removeItem")) {
       return;
     }
+    return localStorage.removeItem(key);
   },
 };
 
