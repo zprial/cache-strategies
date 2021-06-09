@@ -9,6 +9,8 @@
 [![lines coverage](./coverage/badge-lines.svg)](./coverage/lcov-report/index.html)
 [![statements coverage](./coverage/badge-statements.svg)](./coverage/lcov-report/index.html)
 
+![code-coverage.jpeg](./resources/code-coverage.jpeg)
+
 ## Usage
 
 ### 安装
