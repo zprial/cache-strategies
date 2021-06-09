@@ -21,7 +21,13 @@ export const validateKey = (
  * @returns {Boolean}
  */
 export const validateCacheFunc = (value: any) => {
-  if (value === undefined || value === null || Number.isNaN(value)) {
+  if (
+    value === undefined ||
+    value === null ||
+    Number.isNaN(value) ||
+    typeof value === "function" ||
+    typeof value === 'bigint'
+  ) {
     return false;
   }
   return true;
