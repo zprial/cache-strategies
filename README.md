@@ -79,3 +79,10 @@
 - cacheAndApiRace
 - cacheThenUpdate
 - CacheStrategy Class
+
+## WIP
+
+- [ ] 缓存过期时间?
+- [ ] LRU算法?
+- [ ] 小程序平台Adapter
+- [ ] weex平台Adapter
