@@ -9,6 +9,15 @@
 [![lines coverage](./coverage/badge-lines.svg)](./coverage/lcov-report/index.html)
 [![statements coverage](./coverage/badge-statements.svg)](./coverage/lcov-report/index.html)
 
+## WIP
+
+- [ ] 缓存过期时间?
+- [ ] LRU算法?
+- [x] 微信小程序平台Adapter
+- [ ] weex平台Adapter
+- [x] web 平台Adapter
+- [ ] nodejs Adapter?
+
 ## Usage
 
 ### 安装
@@ -265,12 +274,3 @@
 #### CacheStrategy Class：
 
 缓存策略原始类，你可以自行自定义自己的策略。
-
-## WIP
-
-- [ ] 缓存过期时间?
-- [ ] LRU算法?
-- [x] 微信小程序平台Adapter
-- [ ] weex平台Adapter
-- [x] web 平台Adapter
-- [ ] nodejs Adapter?
