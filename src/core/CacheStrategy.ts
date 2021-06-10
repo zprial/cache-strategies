@@ -38,7 +38,7 @@ class CacheStrategy {
   ) {
     const _config = mergeConfig(this.config, customConfig);
     const saveKey =
-      _config?.currentSaveKey ||
+      _config.prefix + _config?.currentSaveKey ||
       _config.prefix + md5(`${JSON.stringify(args)}_${fn.toString()}`);
 
     return {
@@ -190,7 +190,7 @@ class CacheStrategy {
    */
   cacheThenUpdate(
     fn: Function,
-    config?: Partial<CacheStrategyConfig>,
+    config?: Partial<CacheStrategyConfig>
   ): (...args: any[]) => Promise<any> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
@@ -199,7 +199,12 @@ class CacheStrategy {
       if (result) {
         Promise.resolve(fn(...args)).then(async (res) => {
           this.validateAndCache(_config, saveKey, res);
-          if (typeof _config.updateCallback === "function" && _config.validateCache(res)) _config.updateCallback(res);
+          if (
+            typeof _config.updateCallback === "function" &&
+            _config.validateCache(res)
+          ) {
+            _config.updateCallback(res);
+          }
         });
         return result;
       } else {
