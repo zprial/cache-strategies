@@ -81,7 +81,8 @@
 
 ##### cacheAndApiRace
 ##### cacheThenUpdate
-##### CacheStrategy Class
+
+#### CacheStrategy Class
 
 ## WIP
 

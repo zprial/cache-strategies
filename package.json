@@ -10,12 +10,20 @@
     "build": "npm run build:es5 && npm run build:es6",
     "test:coverage": "jest --colors --coverage --forceExit --detectOpenHandles --expand --passWithNoTests",
     "test:badges": "jest-coverage-badges",
-    "test": "npm run test:coverage && npm run test:badges"
+    "test": "npm run test:coverage && npm run test:badges",
+    "pub": "npm run build && npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "ssh://git@192.168.101.206:10022/zhangtong/cache-strategies.git"
   },
+  "publishConfig": {
+    "registry": "http://192.168.101.207:8081/repository/npm-private/"
+  },
+  "files": [
+    "dist",
+    "lib"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
