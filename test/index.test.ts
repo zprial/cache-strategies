@@ -146,8 +146,10 @@ describe("开始测试", () => {
     }
 
     let fakeFunc2 = jest.fn();
-    const addCountCache = cacheStrategy.cacheThenUpdate(addCount, {}, (re) => {
-      fakeFunc2(re)
+    const addCountCache = cacheStrategy.cacheThenUpdate(addCount, {
+      updateCallback: (re) => {
+        fakeFunc2(re)
+      }
     });
     const res = await addCountCache();
     expect(res).toBe(2);

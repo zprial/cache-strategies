@@ -90,3 +90,5 @@
 - [ ] LRU算法?
 - [ ] 小程序平台Adapter
 - [ ] weex平台Adapter
+- [x] web 平台Adapter
+- [ ] nodejs Adapter?
