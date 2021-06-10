@@ -1,9 +1,14 @@
 import { Adapter } from '../types'
-import webStoreage from "./web";
+import webAdapter from "./web";
+import wxAdapter from './wx_tinyapp'
 
 export default function getDefaultAdapter(): Adapter | null {
-  if (global && global.localStorage) {
-    return webStoreage;
+  if (window && window.localStorage) {
+    return webAdapter;
+  }
+  // @ts-ignore
+  else if (wx && wx.getStorageSync) {
+    return wxAdapter;
   }
 
   return null;
