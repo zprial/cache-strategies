@@ -10,4 +10,9 @@ export declare interface CacheStrategyConfig {
   prefix?: string;
   // 此次用来缓存的key，默认会用md5("JSON.stringify(args)_fn.toString()")
   currentSaveKey?: string;
+
+  // 特殊的一些配置，一般只针对某些策略生效
+  // 只针对 cacheThenUpdate 策略生效，当接口调用成功返回数据后，
+  // 如果数据符合 `validateCache` 检验的话会回调
+  updateCallback?(newVal: any): any
 }

@@ -191,7 +191,6 @@ class CacheStrategy {
   cacheThenUpdate(
     fn: Function,
     config?: Partial<CacheStrategyConfig>,
-    callback?: (newValue: any) => any
   ): (...args: any[]) => Promise<any> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
@@ -200,7 +199,7 @@ class CacheStrategy {
       if (result) {
         Promise.resolve(fn(...args)).then(async (res) => {
           this.validateAndCache(_config, saveKey, res);
-          if (typeof callback === "function" && this.config.validateCache(res)) callback(res);
+          if (typeof _config.updateCallback === "function" && _config.validateCache(res)) _config.updateCallback(res);
         });
         return result;
       } else {
