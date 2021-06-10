@@ -200,7 +200,7 @@ class CacheStrategy {
       if (result) {
         Promise.resolve(fn(...args)).then(async (res) => {
           this.validateAndCache(_config, saveKey, res);
-          if (typeof callback === "function") callback(res);
+          if (typeof callback === "function" && this.config.validateCache(res)) callback(res);
         });
         return result;
       } else {
