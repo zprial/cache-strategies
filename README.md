@@ -9,8 +9,6 @@
 [![lines coverage](./coverage/badge-lines.svg)](./coverage/lcov-report/index.html)
 [![statements coverage](./coverage/badge-statements.svg)](./coverage/lcov-report/index.html)
 
-![code-coverage.jpeg](./resources/code-coverage.jpeg)
-
 ## Usage
 
 ### 安装
@@ -88,7 +86,7 @@
 
 - [ ] 缓存过期时间?
 - [ ] LRU算法?
-- [ ] 小程序平台Adapter
+- [x] 微信小程序平台Adapter
 - [ ] weex平台Adapter
 - [x] web 平台Adapter
 - [ ] nodejs Adapter?
