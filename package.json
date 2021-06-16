@@ -1,6 +1,6 @@
 {
   "name": "@hd/cache-strategies",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "dist/index.js",
   "module": "lib/index.js",
