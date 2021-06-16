@@ -4,6 +4,9 @@ import { validateKey } from "../validator";
 
 export class MemoryAdapter extends LRUMap<string, any> {
   type = "memoryAdapter";
+  constructor(limit: number, entries?: Iterable<[string, any]>) {
+    super(limit, entries);
+  }
   async getItem(key: string): Promise<any> {
     if (!validateKey(key, "getItem")) {
       return null;

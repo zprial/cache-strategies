@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "module": "lib/index.js",
   "scripts": {
-    "build:es5": "tsc --outDir dist",
-    "build:es6": "tsc --outDir lib -m es6",
+    "build:es5": "tsc --outDir dist -t es5",
+    "build:es6": "tsc --outDir lib -m es6 -t es5",
     "build": "npm run build:es5 && npm run build:es6",
     "test:coverage": "jest --colors --coverage --forceExit --detectOpenHandles --expand --passWithNoTests",
     "test:badges": "jest-coverage-badges",

@@ -4,6 +4,9 @@ describe("memoryAdapter接口测试:", () => {
   beforeAll(() => {
     console.error = () => {}
   });
+  beforeEach(() => {
+    memoryAdapter.clear()
+  });
 
   test("如果key不存在，getItem 返回null:", async () => {
     const result = await memoryAdapter.getItem("abc");

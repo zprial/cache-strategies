@@ -27,7 +27,9 @@ describe("开始测试", () => {
       count += 1;
       return count;
     }
-    const addCountCache = cacheStrategy.staleWhileRevalidate(addCount);
+    const addCountCache = cacheStrategy.staleWhileRevalidate(addCount, {
+      currentSaveKey: 'demokey'
+    });
     let res = await addCountCache();
     expect(res).toEqual(2);
     expect(count).toEqual(2);
