@@ -14,9 +14,10 @@
 - [ ] 缓存过期时间?
 - [ ] LRU算法?
 - [x] 微信小程序平台Adapter
-- [ ] weex平台Adapter
+- [ ] ~~weex平台Adapter~~ 外部实现
 - [x] web 平台Adapter
 - [ ] nodejs Adapter?
+- [x] 内存存储 Adapter，全平台通用
 
 ## Usage
 
