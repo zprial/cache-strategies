@@ -31,6 +31,15 @@
 
 #### cacheStrategy: 缓存策略实例
 
+  * [staleWhileRevalidate 策略](#staleWhileRevalidate 策略)
+  * [cacheFirst 策略](#cacheFirst 策略)
+  * [apiFirst 策略](#apiFirst 策略)
+  * [cacheAndApiRace 策略](#cacheAndApiRace 策略)
+  * [☆☆☆☆☆ cacheThenUpdate 策略](#☆☆☆☆☆ cacheThenUpdate 策略)
+  * [cacheOnly 策略](#cacheOnly 策略)
+  * [apiOnly 策略](#apiOnly 策略)
+
+
 > 注：除了 apiFirst 策略会帮您捕获异常，其他策略并不会帮您的方法捕获异常，请自行处理异常情况
 
   ##### useConfig: 更改缓存策略实例的配置
@@ -245,7 +254,7 @@
     console.log(count); // -> 1
   ```
 
-  ##### apiOnly:
+  ##### apiOnly 策略:
 
   如果您需要从 api 获取特定的数据，那么只需使用 apiOnly 策略。
   
