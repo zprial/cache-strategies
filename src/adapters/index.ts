@@ -1,15 +1,16 @@
 import { Adapter } from '../types'
 import webAdapter from "./web";
 import wxAdapter from './wx_tinyapp'
+import memoryAdapter from './memory'
 
 export default function getDefaultAdapter(): Adapter | null {
   if (window && window.localStorage) {
     return webAdapter;
   }
   // @ts-ignore
-  else if (wx && wx.getStorageSync) {
+  else if (typeof wx === 'object' && wx.getStorageSync) {
     return wxAdapter;
+  } else {
+    return memoryAdapter
   }
-
-  return null;
 }
