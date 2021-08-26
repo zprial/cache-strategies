@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
+    "lru_map": "^0.4.1",
     "md5": "^2.3.0"
   }
 }
