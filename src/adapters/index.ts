@@ -1,7 +1,7 @@
 import { Adapter } from '../types'
 import webAdapter from "./web";
 import wxAdapter from './wx_tinyapp'
-import memoryAdapter from './memory'
+import { MemoryAdapter } from './memory'
 
 export default function getDefaultAdapter(): Adapter | null {
   if (window && window.localStorage) {
@@ -11,6 +11,6 @@ export default function getDefaultAdapter(): Adapter | null {
   else if (typeof wx === 'object' && wx.getStorageSync) {
     return wxAdapter;
   } else {
-    return memoryAdapter
+    return new MemoryAdapter(Number.MAX_SAFE_INTEGER);
   }
 }

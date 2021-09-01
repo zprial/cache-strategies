@@ -1,5 +1,6 @@
-import memoryAdapter from "../../src/adapters/memory";
+import { MemoryAdapter } from "../../src/adapters/memory";
 
+const memoryAdapter = new MemoryAdapter(Number.MAX_SAFE_INTEGER)
 describe("memoryAdapter接口测试:", () => {
   beforeAll(() => {
     console.error = () => {}

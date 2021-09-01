@@ -31,5 +31,5 @@ export class MemoryAdapter extends LRUMap<string, any> {
   }
 }
 
-const memoryAdapter = new MemoryAdapter(Number.MAX_SAFE_INTEGER);
-export default memoryAdapter;
+// const memoryAdapter = new MemoryAdapter(Number.MAX_SAFE_INTEGER);
+// export default memoryAdapter;
