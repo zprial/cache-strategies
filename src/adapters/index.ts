@@ -4,7 +4,7 @@ import wxAdapter from './wx_tinyapp'
 import { MemoryAdapter } from './memory'
 
 export default function getDefaultAdapter(): Adapter | null {
-  if (window && window.localStorage) {
+  if (typeof window === 'object' && window.localStorage) {
     return webAdapter;
   }
   // @ts-ignore
