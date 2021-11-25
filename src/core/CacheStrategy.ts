@@ -1,4 +1,4 @@
-import * as md5 from "md5";
+import md5 from "md5";
 import { CacheStrategyConfig } from "../types";
 import getDefaultAdapter from "../adapters";
 import { validateCacheFunc } from "../validator";
