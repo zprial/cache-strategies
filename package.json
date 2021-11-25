@@ -4,10 +4,6 @@
   "description": "",
   "main": "dist/index.js",
   "module": "lib/index.js",
-  "exports": {
-    "./min": "./min/index.umd.min.js",
-    "./es.min": "./min/index.es.min.js"
-  },
   "scripts": {
     "build:es5": "tsc --outDir dist -t es5",
     "build:es6": "tsc --outDir lib -m es6 -t es5",
