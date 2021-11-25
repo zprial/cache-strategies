@@ -16,7 +16,7 @@
     "test:badges": "jest-coverage-badges",
     "test": "npm run test:coverage && npm run test:badges",
     "clean": "rm -rf dist lib min",
-    "pub": "npm run clean && npm run build && && npm run build:lib && npm version patch && npm publish",
+    "pub": "npm run clean && npm run build && npm run build:lib && npm version patch && npm publish",
     "build:lib": "vite build"
   },
   "repository": {
