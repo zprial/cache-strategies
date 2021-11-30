@@ -3,7 +3,7 @@ import { validateKey } from "../validator";
 
 const webAdapter: Adapter = {
   type: 'webAdapter',
-  async getItem(key: string) {
+  getItem(key: string) {
     if (!validateKey(key, "getItem")) {
       return null;
     }
@@ -17,13 +17,13 @@ const webAdapter: Adapter = {
     }
     return null;
   },
-  async setItem(key: string, val: any) {
+  setItem(key: string, val: any) {
     if (!validateKey(key, "setItem")) {
       return;
     }
     return localStorage.setItem(key, JSON.stringify(val));
   },
-  async removeItem(key: string) {
+  removeItem(key: string) {
     if (!validateKey(key, "removeItem")) {
       return;
     }
