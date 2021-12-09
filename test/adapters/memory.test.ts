@@ -1,6 +1,6 @@
-import { MemoryAdapter } from "../../src/adapters/memory";
+import { MapAdapter as MemoryAdapter } from "../../src/adapters/memory";
 
-const memoryAdapter = new MemoryAdapter(Number.MAX_SAFE_INTEGER)
+const memoryAdapter = new MemoryAdapter();
 describe("memoryAdapter接口测试:", () => {
   beforeAll(() => {
     console.error = () => {}
@@ -32,6 +32,6 @@ describe("memoryAdapter接口测试:", () => {
     expect(res3).toBe(undefined);
     // @ts-ignore
     const res4 = await memoryAdapter.removeItem("abc");
-    expect(res4).toBe(undefined);
+    expect([undefined, false]).toContain(res4);
   });
 });
