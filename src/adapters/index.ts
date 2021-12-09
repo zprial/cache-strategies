@@ -11,6 +11,7 @@ export default function getDefaultAdapter(): Adapter | null {
   else if (typeof wx === 'object' && wx.getStorageSync) {
     return wxAdapter;
   } else {
-    return new MapAdapter();
+    // return new MapAdapter();
+    return null;
   }
 }
