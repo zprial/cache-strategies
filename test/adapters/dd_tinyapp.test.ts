@@ -27,7 +27,7 @@ describe("ddAdapter接口测试:", () => {
       }
     };
     // @ts-ignore
-    global.wx = new LocalStorageMock()
+    global.dd = new LocalStorageMock()
   });
 
   test("如果key不存在，getItem 返回null:", async () => {
