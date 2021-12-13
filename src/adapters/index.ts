@@ -16,6 +16,7 @@ export default function getDefaultAdapter(): Adapter | null {
   else if (typeof dd === 'object' && dd.getStorageSync) {
     return ddAdapter;
   } else {
-    return new MemoryAdapter(Number.MAX_SAFE_INTEGER);
+    // return new MemoryAdapter(Number.MAX_SAFE_INTEGER);
+    return null;
   }
 }
