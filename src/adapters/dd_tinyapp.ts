@@ -9,7 +9,7 @@ const ddAdapter: Adapter = {
     }
     try {
       // @ts-ignore
-      const result = wx.getStorageSync({ key });
+      const result = dd.getStorageSync({ key });
       if (result) {
         return result;
       }
