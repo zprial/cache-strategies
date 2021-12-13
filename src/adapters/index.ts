@@ -2,7 +2,7 @@ import { Adapter } from '../types'
 import webAdapter from "./web";
 import wxAdapter from './wx_tinyapp'
 import ddAdapter from './dd_tinyapp';
-import { MapAdapter } from './memory'
+import { MemoryAdapter } from './memory'
 
 export default function getDefaultAdapter(): Adapter | null {
   if (typeof window === 'object' && window.localStorage) {
@@ -16,7 +16,6 @@ export default function getDefaultAdapter(): Adapter | null {
   else if (typeof dd === 'object' && dd.getStorageSync) {
     return ddAdapter;
   } else {
-    // return new MapAdapter();
-    return null;
+    return new MemoryAdapter(Number.MAX_SAFE_INTEGER);
   }
 }
