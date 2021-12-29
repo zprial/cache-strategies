@@ -4,6 +4,10 @@ import getDefaultAdapter from "../adapters";
 import { validateCacheFunc } from "../validator";
 import { mergeConfig } from "../utils";
 
+type PromiseResolvedType<T> = T extends Promise<infer R> ? R : T;
+type AsyncReturnType<F extends (...args: object[]) => unknown> =
+  PromiseResolvedType<ReturnType<F>>;
+
 class CacheStrategy {
   config: CacheStrategyConfig;
   constructor(config?: Partial<Omit<CacheStrategyConfig, "currentSaveKey">>) {
@@ -74,10 +78,10 @@ class CacheStrategy {
    * @param {CacheStrategyConfig} config 修改一些配置
    * @returns {Function}
    */
-  staleWhileRevalidate(
-    fn: Function,
+  staleWhileRevalidate<T extends (...args: any) => any>(
+    fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<any> {
+  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
       // 优先从缓存中读取
@@ -95,10 +99,10 @@ class CacheStrategy {
   }
 
   // 只从缓存中读取
-  cacheOnly(
-    fn: Function,
+  cacheOnly<T extends (...args: any) => any>(
+    fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<any> {
+  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -108,10 +112,10 @@ class CacheStrategy {
   }
 
   // 只从接口方法中获取
-  apiOnly(
-    fn: Function,
+  apiOnly<T extends (...args: any) => any>(
+    fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<any> {
+  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const data = await fn(...args);
       return data;
@@ -120,10 +124,10 @@ class CacheStrategy {
 
   // 缓存优先
   // 有缓存走缓存，没有缓存走接口
-  cacheFirst(
-    fn: Function,
+  cacheFirst<T extends (...args: any) => any>(
+    fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<any> {
+  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -143,10 +147,10 @@ class CacheStrategy {
   // 成功则返回数据并缓存
   // 获取失败或者数据不符合 `config.validateCache()`，那么降级从缓存获取
   // 注意：此方法会捕获接口异常，不会往外抛
-  apiFirst(
-    fn: Function,
+  apiFirst<T extends (...args: any) => any>(
+    fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<any> {
+  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -165,10 +169,10 @@ class CacheStrategy {
 
   // 缓存和接口竞速优先，谁先拿到结果用谁的，同时会更新缓存，慎用
   // 依赖 `Promise.any`，请自行打好补丁
-  cacheAndApiRace(
-    fn: Function,
+  cacheAndApiRace<T extends (...args: any) => any>(
+    fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<any> {
+  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -188,10 +192,10 @@ class CacheStrategy {
    * 优先返回缓存，等接口返回后再次回调callback，并存储数据到缓存
    * 如果没有缓存，则等待接口返回数据，不会触发callback
    */
-  cacheThenUpdate(
-    fn: Function,
+  cacheThenUpdate<T extends (...args: any) => any>(
+    fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<any> {
+  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
