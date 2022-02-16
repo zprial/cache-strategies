@@ -276,11 +276,19 @@
 <a name='L217'></a><a href='#L217'>217</a>
 <a name='L218'></a><a href='#L218'>218</a>
 <a name='L219'></a><a href='#L219'>219</a>
-<a name='L220'></a><a href='#L220'>220</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -501,6 +509,10 @@ import getDefaultAdapter from "../adapters";
 import { validateCacheFunc } from "../validator";
 import { mergeConfig } from "../utils";
 &nbsp;
+type PromiseResolvedType&lt;T&gt; = T extends Promise&lt;infer R&gt; ? R : T;
+type AsyncReturnType&lt;F extends (...args: object[]) =&gt; unknown&gt; =
+  PromiseResolvedType&lt;ReturnType&lt;F&gt;&gt;;
+&nbsp;
 class CacheStrategy {
   config: CacheStrategyConfig;
   constructor(config?: Partial&lt;Omit&lt;CacheStrategyConfig, "currentSaveKey"&gt;&gt;) {
@@ -571,15 +583,15 @@ class CacheStrategy {
    * @param {CacheStrategyConfig} config 修改一些配置
    * @returns {Function}
    */
-  staleWhileRevalidate(
-    fn: Function,
+  staleWhileRevalidate&lt;T extends (...args: any) =&gt; any&gt;(
+    fn: T,
     config?: Partial&lt;CacheStrategyConfig&gt;
-  ): (...args: any[]) =&gt; Promise&lt;any&gt; {
+  ): (...args: any[]) =&gt; Promise&lt;AsyncReturnType&lt;T&gt;&gt; {
     return async (...args: any[]) =&gt; {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
       // 优先从缓存中读取
       const result = await _config.adapter.getItem(saveKey);
-      if (result) {
+      if (await _config.validateCache(result)) {
         Promise.resolve(fn(...args)).then(async (res) =&gt; {
           this.validateAndCache(_config, saveKey, res);
         });
@@ -592,10 +604,10 @@ class CacheStrategy {
   }
 &nbsp;
   // 只从缓存中读取
-  cacheOnly(
-    fn: Function,
+  cacheOnly&lt;T extends (...args: any) =&gt; any&gt;(
+    fn: T,
     config?: Partial&lt;CacheStrategyConfig&gt;
-  ): (...args: any[]) =&gt; Promise&lt;any&gt; {
+  ): (...args: any[]) =&gt; Promise&lt;AsyncReturnType&lt;T&gt;&gt; {
     return async (...args: any[]) =&gt; {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 &nbsp;
@@ -605,10 +617,10 @@ class CacheStrategy {
   }
 &nbsp;
   // 只从接口方法中获取
-  apiOnly(
-    fn: Function,
+  apiOnly&lt;T extends (...args: any) =&gt; any&gt;(
+    fn: T,
     config?: Partial&lt;CacheStrategyConfig&gt;
-  ): (...args: any[]) =&gt; Promise&lt;any&gt; {
+  ): (...args: any[]) =&gt; Promise&lt;AsyncReturnType&lt;T&gt;&gt; {
     return async (...args: any[]) =&gt; {
       const data = await fn(...args);
       return data;
@@ -617,16 +629,16 @@ class CacheStrategy {
 &nbsp;
   // 缓存优先
   // 有缓存走缓存，没有缓存走接口
-  cacheFirst(
-    fn: Function,
+  cacheFirst&lt;T extends (...args: any) =&gt; any&gt;(
+    fn: T,
     config?: Partial&lt;CacheStrategyConfig&gt;
-  ): (...args: any[]) =&gt; Promise&lt;any&gt; {
+  ): (...args: any[]) =&gt; Promise&lt;AsyncReturnType&lt;T&gt;&gt; {
     return async (...args: any[]) =&gt; {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 &nbsp;
       // 优先从缓存中读取
       const result = await _config.adapter.getItem(saveKey);
-      if (result) {
+      if (await _config.validateCache(result)) {
         return result;
       }
       const data = await fn(...args);
@@ -640,10 +652,10 @@ class CacheStrategy {
   // 成功则返回数据并缓存
   // 获取失败或者数据不符合 `config.validateCache()`，那么降级从缓存获取
   // 注意：此方法会捕获接口异常，不会往外抛
-  apiFirst(
-    fn: Function,
+  apiFirst&lt;T extends (...args: any) =&gt; any&gt;(
+    fn: T,
     config?: Partial&lt;CacheStrategyConfig&gt;
-  ): (...args: any[]) =&gt; Promise&lt;any&gt; {
+  ): (...args: any[]) =&gt; Promise&lt;AsyncReturnType&lt;T&gt;&gt; {
     return async (...args: any[]) =&gt; {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 &nbsp;
@@ -662,10 +674,10 @@ class CacheStrategy {
 &nbsp;
   // 缓存和接口竞速优先，谁先拿到结果用谁的，同时会更新缓存，慎用
   // 依赖 `Promise.any`，请自行打好补丁
-  cacheAndApiRace(
-    fn: Function,
+  cacheAndApiRace&lt;T extends (...args: any) =&gt; any&gt;(
+    fn: T,
     config?: Partial&lt;CacheStrategyConfig&gt;
-  ): (...args: any[]) =&gt; Promise&lt;any&gt; {
+  ): (...args: any[]) =&gt; Promise&lt;AsyncReturnType&lt;T&gt;&gt; {
     return async (...args: any[]) =&gt; {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 &nbsp;
@@ -685,15 +697,15 @@ class CacheStrategy {
    * 优先返回缓存，等接口返回后再次回调callback，并存储数据到缓存
    * 如果没有缓存，则等待接口返回数据，不会触发callback
    */
-  cacheThenUpdate(
-    fn: Function,
+  cacheThenUpdate&lt;T extends (...args: any) =&gt; any&gt;(
+    fn: T,
     config?: Partial&lt;CacheStrategyConfig&gt;
-  ): (...args: any[]) =&gt; Promise&lt;any&gt; {
+  ): (...args: any[]) =&gt; Promise&lt;AsyncReturnType&lt;T&gt;&gt; {
     return async (...args: any[]) =&gt; {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 &nbsp;
       const result = await _config.adapter.getItem(saveKey);
-      if (result) {
+      if (await _config.validateCache(result)) {
         Promise.resolve(fn(...args)).then(async (res) =&gt; {
           this.validateAndCache(_config, saveKey, res);
           <span class="missing-if-branch" title="else path not taken" >E</span>if (
@@ -721,7 +733,7 @@ export default CacheStrategy;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 13 2021 11:27:21 GMT+0800 (中国标准时间)
+                at Wed Feb 16 2022 22:23:50 GMT+0800 (中国标准时间)
             </div>
         </div>
         <script src="../../prettify.js"></script>
