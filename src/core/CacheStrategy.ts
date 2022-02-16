@@ -42,7 +42,7 @@ class CacheStrategy {
   ) {
     const _config = mergeConfig(this.config, customConfig);
     const saveKey = _config?.currentSaveKey
-      ? _config.prefix + _config?.currentSaveKey
+      ? _config.prefix + _config?.currentSaveKey + `:${md5(JSON.stringify(args)).substring(0, 16)}`
       : _config.prefix + md5(`${JSON.stringify(args)}_${fn.toString()}`);
 
     return {
@@ -217,13 +217,6 @@ class CacheStrategy {
         return data;
       }
     };
-  }
-
-  // 移除已知key的缓存
-  removeItem(key: string, config?: Partial<CacheStrategyConfig>) {
-    const _config = mergeConfig(this.config, config);
-    const saveKey = _config.prefix + key;
-    return this.config.adapter.removeItem(saveKey);
   }
 }
 

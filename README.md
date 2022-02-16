@@ -14,6 +14,8 @@
 ## WIP
 
 - [ ] 缓存过期时间?
+- [ ] 缓存清理 storage clear
+- [ ] 收缩 config 更改范围
 - [ ] LRU算法?
 - [x] 微信小程序平台Adapter
 - [ ] ~~weex平台Adapter~~ 外部实现
