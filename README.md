@@ -9,6 +9,8 @@
 [![lines coverage](./coverage/badge-lines.svg)](./coverage/lcov-report/index.html)
 [![statements coverage](./coverage/badge-statements.svg)](./coverage/lcov-report/index.html)
 
+![单元测试](./coverage.jpg)
+
 ## WIP
 
 - [ ] 缓存过期时间?
