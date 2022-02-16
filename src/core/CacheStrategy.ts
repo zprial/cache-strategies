@@ -221,7 +221,8 @@ class CacheStrategy {
 
   // 移除已知key的缓存
   removeItem(key: string, config?: Partial<CacheStrategyConfig>) {
-    const saveKey = config.prefix + key;
+    const _config = mergeConfig(this.config, config);
+    const saveKey = _config.prefix + key;
     return this.config.adapter.removeItem(saveKey);
   }
 }
