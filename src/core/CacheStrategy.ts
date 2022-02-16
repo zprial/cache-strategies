@@ -86,7 +86,7 @@ class CacheStrategy {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
       // 优先从缓存中读取
       const result = await _config.adapter.getItem(saveKey);
-      if (result) {
+      if (await config.validateCache(result)) {
         Promise.resolve(fn(...args)).then(async (res) => {
           this.validateAndCache(_config, saveKey, res);
         });
@@ -133,7 +133,7 @@ class CacheStrategy {
 
       // 优先从缓存中读取
       const result = await _config.adapter.getItem(saveKey);
-      if (result) {
+      if (await config.validateCache(result)) {
         return result;
       }
       const data = await fn(...args);
@@ -200,7 +200,7 @@ class CacheStrategy {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
       const result = await _config.adapter.getItem(saveKey);
-      if (result) {
+      if (await config.validateCache(result)) {
         Promise.resolve(fn(...args)).then(async (res) => {
           this.validateAndCache(_config, saveKey, res);
           if (

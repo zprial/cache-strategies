@@ -7,7 +7,8 @@
   "scripts": {
     "build:es5": "tsc --outDir dist -t es5",
     "build:es6": "tsc --outDir lib -m es6 -t es5",
-    "build": "npm run build:es5 && npm run build:es6",
+    "build:es": "tsc --outDir es -m es6 -t es6",
+    "build": "npm run build:es5 && npm run build:es6 && npm run build:es",
     "test:coverage": "jest --colors --coverage --forceExit --detectOpenHandles --expand --passWithNoTests",
     "test:badges": "jest-coverage-badges",
     "test": "npm run test:coverage && npm run test:badges",
@@ -25,7 +26,8 @@
   "files": [
     "dist",
     "lib",
-    "min"
+    "min",
+    "es"
   ],
   "author": "",
   "license": "ISC",

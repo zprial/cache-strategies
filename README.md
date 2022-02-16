@@ -17,7 +17,7 @@
 - [ ] ~~weex平台Adapter~~ 外部实现
 - [x] web 平台Adapter
 - [ ] nodejs Adapter?
-- [x] 内存存储 Adapter，全平台通用
+- [x] 内存存储 Adapter，全平台通用，支持LRU
 
 ## Usage
 
@@ -284,3 +284,31 @@
 #### CacheStrategy Class：
 
 缓存策略原始类，你可以自行自定义自己的策略。
+
+## Adapter 更换
+
+工具默认走各个平台的永久缓存，如 web 端的 `localStorage`, 微信小程序端的 `storage`, 工具包暴露了[各个平台的适配器](./src/adapters)，你可以选用合适的适配器以满足需求。
+
+```typescript
+import { CacheStrategy, MemoryAdapter } from "@hd/cache-strategy";
+
+// 使用内存缓存
+const cacheStrategy = new CacheStrategy({
+  adapter: new MemoryAdapter()
+});
+```
+
+### 自定义 Adapter
+
+如果现有的 `adapter` 不满足您的需求，您可以自定义自己的 `adapter`, 只需实现以下接口:
+
+```typescript
+export declare interface Adapter {
+  type?: string;
+  getItem(key: string): Promise<any> | any;
+  setItem(key: string, val: any): Promise<any> | any;
+  removeItem(key: string): Promise<void> | any;
+}
+```
+
+> 可参考[各个平台的适配器](./src/adapters)的写法
