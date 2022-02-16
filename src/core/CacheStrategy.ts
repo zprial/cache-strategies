@@ -42,7 +42,7 @@ class CacheStrategy {
   ) {
     const _config = mergeConfig(this.config, customConfig);
     const saveKey = _config?.currentSaveKey
-      ? _config.prefix + _config?.currentSaveKey + `:${md5(JSON.stringify(args)).substring(0, 16)}`
+      ? _config.prefix + _config?.currentSaveKey + `/${md5(JSON.stringify(args)).substring(0, 16)}`
       : _config.prefix + md5(`${JSON.stringify(args)}_${fn.toString()}`);
 
     return {
