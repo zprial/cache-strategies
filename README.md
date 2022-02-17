@@ -294,7 +294,7 @@
 工具默认走各个平台的永久缓存，如 web 端的 `localStorage`, 微信小程序端的 `storage`, 工具包暴露了[各个平台的适配器](./src/adapters)，你可以选用合适的适配器以满足需求。
 
 ```typescript
-import { CacheStrategy, MemoryAdapter } from "@hd/cache-strategy";
+import { CacheStrategy, MemoryAdapter } from "@hd/cache-strategies";
 
 // 使用内存缓存
 const cacheStrategy = new CacheStrategy({
