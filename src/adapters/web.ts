@@ -5,17 +5,14 @@ const webAdapter: Adapter = {
   type: 'webAdapter',
   getItem(key: string) {
     if (!validateKey(key, "getItem")) {
-      return null;
+      return undefined;
     }
     const result = localStorage.getItem(key);
-    if (result) {
-      try {
-        return JSON.parse(result);
-      } catch (error) {
-        return null;
-      }
+    try {
+      return JSON.parse(result);
+    } catch (error) {
+      return undefined;
     }
-    return null;
   },
   setItem(key: string, val: any) {
     if (!validateKey(key, "setItem")) {

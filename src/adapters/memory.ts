@@ -13,13 +13,10 @@ export class MemoryAdapter {
   }
   async getItem(key: string): Promise<any> {
     if (!validateKey(key, "getItem")) {
-      return null;
+      return undefined;
     }
     const result = this.store.get(key);
-    if (result) {
-      return result;
-    }
-    return null;
+    return result;
   }
   async setItem(key: string, val: any) {
     if (!validateKey(key, "setItem")) {
@@ -43,13 +40,10 @@ export class MapAdapter {
   }
   async getItem(key: string): Promise<any> {
     if (!validateKey(key, "getItem")) {
-      return null;
+      return undefined;
     }
     const result = this.store.get(key);
-    if (result) {
-      return result;
-    }
-    return null;
+    return result;
   }
   async setItem(key: string, val: any) {
     if (!validateKey(key, "setItem")) {

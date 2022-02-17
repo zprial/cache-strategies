@@ -5,17 +5,14 @@ const ddAdapter: Adapter = {
   type: 'ddAdapter',
   async getItem(key: string) {
     if (!validateKey(key, "getItem")) {
-      return null;
+      return undefined;
     }
     try {
       // @ts-ignore
       const result = dd.getStorageSync({ key });
-      if (result) {
-        return result;
-      }
-      return null;
+      return result;
     } catch (error) {
-      return null;
+      return undefined;
     }
   },
   async setItem(key: string, val: any) {
