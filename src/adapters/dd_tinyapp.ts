@@ -9,7 +9,7 @@ const ddAdapter: Adapter = {
     }
     try {
       // @ts-ignore
-      const result = dd.getStorageSync({ key });
+      const result = dd.getStorageSync({ key })?.data;
       return result;
     } catch (error) {
       return undefined;

@@ -9,7 +9,7 @@ export default class DDLocalStorageMock {
   }
 
   getStorageSync(param: { key: string }) {
-    return this.store[param.key] || undefined;
+    return { data: this.store[param.key] || undefined };
   }
 
   setStorageSync(param: { key: string; data: any }) {
@@ -21,7 +21,7 @@ export default class DDLocalStorageMock {
   }
   getStorageInfoSync() {
     return {
-      keys: Object.keys(this.store)
+      keys: Object.keys(this.store),
     };
   }
 }

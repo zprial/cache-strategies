@@ -24,6 +24,7 @@ export const validateCacheFunc = (value: any) => {
   if (
     value === undefined ||
     value === null ||
+    value === '' ||
     Number.isNaN(value) ||
     typeof value === "function" ||
     typeof value === 'bigint'
