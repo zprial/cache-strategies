@@ -28,7 +28,7 @@ describe("测试默认校验器:", () => {
     expect(validateCacheFunc(() => {})).toBe(false);
     expect(validateCacheFunc(0)).toBe(true);
     expect(validateCacheFunc('abc')).toBe(true);
-    expect(validateCacheFunc('')).toBe(true);
+    expect(validateCacheFunc('')).toBe(false);
     expect(validateCacheFunc({})).toBe(true);
     expect(validateCacheFunc([])).toBe(true);
     expect(validateCacheFunc(new Set())).toBe(true);
