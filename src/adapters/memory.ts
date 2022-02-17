@@ -2,17 +2,16 @@ import { LRUMap } from "lru_map";
 import { Adapter } from "../types";
 import { validateKey } from "../validator";
 
-export class MemoryAdapter {
+export class MemoryAdapter extends LRUMap<string, any> {
   type = "memoryAdapter";
-  store: LRUMap<string, any>;
-  constructor(limit?: number, entries?: Iterable<[string, any]>) {
-    this.store = new LRUMap(limit, entries);
+  constructor(limit: number, entries?: Iterable<[string, any]>) {
+    super(limit, entries);
   }
   async getItem(key: string): Promise<any> {
     if (!validateKey(key, "getItem")) {
       return null;
     }
-    const result = this.store.get(key);
+    const result = this.get(key);
     if (result) {
       return result;
     }
@@ -22,27 +21,26 @@ export class MemoryAdapter {
     if (!validateKey(key, "setItem")) {
       return;
     }
-    return this.store.set(key, val);
+    return this.set(key, val);
   }
   async removeItem(key: string) {
     if (!validateKey(key, "removeItem")) {
       return;
     }
-    return this.store.delete(key);
+    return this.delete(key);
   }
 }
 
-export class MapAdapter {
+export class MapAdapter extends Map<string, any> {
   type = "mapAdapter";
-  store: Map<string, any>;
   constructor(entries?: Iterable<[string, any]>) {
-    this.store = new Map(entries)
+    super(entries);
   }
   async getItem(key: string): Promise<any> {
     if (!validateKey(key, "getItem")) {
       return null;
     }
-    const result = this.store.get(key);
+    const result = this.get(key);
     if (result) {
       return result;
     }
@@ -52,12 +50,12 @@ export class MapAdapter {
     if (!validateKey(key, "setItem")) {
       return;
     }
-    return this.store.set(key, val);
+    return this.set(key, val);
   }
   async removeItem(key: string) {
     if (!validateKey(key, "removeItem")) {
       return;
     }
-    return this.store.delete(key);
+    return this.delete(key);
   }
 }

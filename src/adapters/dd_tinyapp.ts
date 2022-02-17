@@ -35,6 +35,10 @@ const ddAdapter: Adapter = {
     // @ts-ignore
     return dd.removeStorageSync({ key });
   },
+  async getAllKeys() {
+    // @ts-ignore
+    return dd.getStorageInfoSync()?.keys
+  }
 };
 
 export default ddAdapter;

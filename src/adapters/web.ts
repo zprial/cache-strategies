@@ -29,6 +29,9 @@ const webAdapter: Adapter = {
     }
     return localStorage.removeItem(key);
   },
+  getAllKeys() {
+    return Object.keys(localStorage);
+  }
 };
 
 export default webAdapter;

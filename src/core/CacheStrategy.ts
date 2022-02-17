@@ -3,6 +3,7 @@ import { CacheStrategyConfig } from "../types";
 import getDefaultAdapter from "../adapters";
 import { validateCacheFunc } from "../validator";
 import { mergeConfig } from "../utils";
+import { CACHE_PREFIX } from "../constants";
 
 type PromiseResolvedType<T> = T extends Promise<infer R> ? R : T;
 type AsyncReturnType<F extends (...args: object[]) => unknown> =
@@ -13,7 +14,7 @@ class CacheStrategy {
   constructor(config?: Partial<Omit<CacheStrategyConfig, "currentSaveKey">>) {
     const { adapter, ...others } = config || {};
     this.config = {
-      prefix: "CACHE-STRATEGY/",
+      prefix: "",
       validateCache: validateCacheFunc,
       ...others,
       adapter: adapter || getDefaultAdapter(),
@@ -42,8 +43,8 @@ class CacheStrategy {
   ) {
     const _config = mergeConfig(this.config, customConfig);
     const saveKey = _config?.currentSaveKey
-      ? _config.prefix + _config?.currentSaveKey + `/${md5(JSON.stringify(args)).substring(0, 16)}`
-      : _config.prefix + md5(`${JSON.stringify(args)}_${fn.toString()}`);
+      ? CACHE_PREFIX + _config.prefix + _config?.currentSaveKey + `/${md5(JSON.stringify(args)).substring(0, 16)}`
+      : CACHE_PREFIX + _config.prefix + md5(`${JSON.stringify(args)}_${fn.toString()}`);
 
     return {
       _config,
@@ -217,6 +218,31 @@ class CacheStrategy {
         return data;
       }
     };
+  }
+
+  /**
+   * 获取本次cache策略实例用的 storage
+   * TODO: 支持 storage 各种功能，比如过期时间等
+   */
+  getStorage() {
+    return {
+      getItem: this.config.adapter.getItem,
+      setItem: this.config.adapter.setItem,
+      removeItem: this.config.adapter.removeItem,
+      // 临时支持下，待调整
+      clear: async () => {
+        const keys = await this.config.adapter.getAllKeys?.();
+        if (!keys?.length) {
+          console.warn(`${CACHE_PREFIX}通知：没有缓存数据或者不支持 clear 方法`);
+          return;
+        }
+        const nameSpace = CACHE_PREFIX + this.config.prefix;
+        const filteredKeys = keys.filter((key) => key.includes(nameSpace));
+        for (let k of filteredKeys) {
+          await this.config.adapter.removeItem(k);
+        }
+      }
+    }
   }
 }
 

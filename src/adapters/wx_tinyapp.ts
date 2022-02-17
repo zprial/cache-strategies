@@ -32,6 +32,10 @@ const wxAdapter: Adapter = {
     // @ts-ignore
     return wx.removeStorageSync(key);
   },
+  async getAllKeys() {
+    // @ts-ignore
+    return wx.getStorageInfoSync()?.keys
+  }
 };
 
 export default wxAdapter;
