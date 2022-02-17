@@ -1,5 +1,5 @@
 import * as bluebird from 'bluebird'
-import cacheStrategy from "../src";
+import cacheStrategy, { CacheStrategy, webAdapter } from "../src";
 import sleep from "./sleep";
 
 describe("开始测试", () => {
@@ -163,5 +163,32 @@ describe("开始测试", () => {
     expect(count).toBe(3);
     await sleep();
     expect(fakeFunc2).toBeCalledWith(3);
+  })
+
+  test('clear 功能测试:', async () => {
+    const ncache = new CacheStrategy({
+      adapter: webAdapter,
+      prefix: 'web-prefix/',
+    })
+
+    let fakeFunc = jest.fn();
+    let count = 1;
+    async function addCount(n: number) {
+      count += n;
+      fakeFunc();
+      return count;
+    }
+    const addCountCache = ncache.cacheFirst(addCount);
+    const res = await addCountCache(1);
+    expect(count).toBe(2);
+    expect(res).toBe(2);
+
+    const storage = ncache.getStorage();
+    const allKeys = await webAdapter.getAllKeys();
+
+    expect(!!allKeys.find(k => k.includes('web-prefix/'))).toBe(true);
+    await storage.clear();
+    const allKeys2 = await webAdapter.getAllKeys();
+    expect(!!allKeys2.find(k => k.includes('web-prefix/'))).toBe(false);
   })
 });

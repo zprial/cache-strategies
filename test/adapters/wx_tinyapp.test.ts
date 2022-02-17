@@ -25,6 +25,9 @@ describe("wxAdapter接口测试:", () => {
       removeStorageSync(key: string) {
         delete this.store[key];
       }
+      getStorageInfoSync() {
+        return Object.keys(this.store);
+      }
     };
     // @ts-ignore
     global.wx = new LocalStorageMock()
