@@ -91,6 +91,20 @@ describe("开始测试", () => {
     expect(count).toBe(2);
     expect(res2).toBe(2);
     expect(fakeFunc).toBeCalledTimes(1);
+
+    let fakeFunc2 = jest.fn();
+    function saveBoolean() {
+      fakeFunc2();
+      return false;
+    }
+    const saveBooleanCache = cacheStrategy.cacheFirst(saveBoolean);
+    const res3 = await saveBooleanCache();
+    expect(fakeFunc2).toBeCalled();
+    expect(res3).toBe(false);
+
+    const res4 = await saveBooleanCache();
+    expect(fakeFunc2).toBeCalledTimes(1);
+    expect(res4).toBe(false);
   });
 
   test("cacheStrategy.apiFirst", async () => {

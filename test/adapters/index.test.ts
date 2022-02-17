@@ -41,9 +41,9 @@ describe("adapter 适配测试:", () => {
         }
       });
 
-      test("如果key不存在，getItem 返回null:", async () => {
+      test("如果key不存在，getItem 返回 undefined 或 null:", async () => {
         const result = await adapter.getItem("abc");
-        expect(result).toBe(null);
+        expect([undefined, null]).toContain(result);
       });
 
       test("如果key存在，getItem 返回对应值:", async () => {
@@ -55,7 +55,7 @@ describe("adapter 适配测试:", () => {
       test("如果key不合法，adapter 各个api将不会处理:", async () => {
         // @ts-ignore
         const res1 = await adapter.getItem(123);
-        expect(res1).toBe(null);
+        expect(res1).toBe(undefined);
         // @ts-ignore
         const res2 = await adapter.setItem(123);
         expect(res2).toBe(undefined);
