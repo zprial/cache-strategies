@@ -1,13 +1,14 @@
 import WXLocalStorageMock from "../../mock/WXLocalStorageMock";
 import DDLocalStorageMock from "../../mock/DDLocalStorageMock";
 
-import getDefaultAdapter, {
+import {
   webAdapter,
   wxAdapter,
   ddAdapter,
   MemoryAdapter,
   MapAdapter,
-} from "../../src/adapters";
+} from "../../src";
+import getDefaultAdapter from "../../src/adapters";
 
 describe("adapter 适配测试:", () => {
   beforeAll(() => {
@@ -39,7 +40,7 @@ describe("adapter 适配测试:", () => {
           expect(keys).toEqual(["a", "b", "c"]);
         }
       });
-      
+
       test("如果key不存在，getItem 返回null:", async () => {
         const result = await adapter.getItem("abc");
         expect(result).toBe(null);
