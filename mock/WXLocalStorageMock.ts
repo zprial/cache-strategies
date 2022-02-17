@@ -20,6 +20,8 @@ export default class WXLocalStorageMock {
     delete this.store[key];
   }
   getStorageInfoSync() {
-    return Object.keys(this.store);
+    return {
+      keys: Object.keys(this.store)
+    };
   }
 }

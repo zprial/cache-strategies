@@ -20,6 +20,8 @@ export default class DDLocalStorageMock {
     delete this.store[param.key];
   }
   getStorageInfoSync() {
-    return Object.keys(this.store);
+    return {
+      keys: Object.keys(this.store)
+    };
   }
 }

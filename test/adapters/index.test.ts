@@ -1,5 +1,5 @@
-import WXLocalStorageMock from '../../mock/WXLocalStorageMock';
-import DDLocalStorageMock from '../../mock/DDLocalStorageMock';
+import WXLocalStorageMock from "../../mock/WXLocalStorageMock";
+import DDLocalStorageMock from "../../mock/DDLocalStorageMock";
 
 import getDefaultAdapter, {
   webAdapter,
@@ -12,7 +12,7 @@ import getDefaultAdapter, {
 describe("adapter 适配测试:", () => {
   beforeAll(() => {
     console.error = () => {};
-    
+
     // @ts-ignore
     global.wx = new WXLocalStorageMock();
     // @ts-ignore
@@ -28,6 +28,18 @@ describe("adapter 适配测试:", () => {
   ];
   for (let adapter of adapters) {
     describe(`${adapter.type} 适配测试:`, () => {
+      test("获取所有的key,如果支持的话, getAllKeys:", async () => {
+        await adapter.setItem("a", 1);
+        await adapter.setItem("b", 2);
+        await adapter.setItem("c", 3);
+        // @ts-ignore
+        if (typeof adapter.getAllKeys === "function") {
+          // @ts-ignore
+          const keys = await adapter.getAllKeys();
+          expect(keys).toEqual(["a", "b", "c"]);
+        }
+      });
+      
       test("如果key不存在，getItem 返回null:", async () => {
         const result = await adapter.getItem("abc");
         expect(result).toBe(null);
