@@ -14,13 +14,6 @@ describe("开始测试", () => {
     expect(true).toBe(true);
   });
 
-  test("cacheStrategy.useConfig:", () => {
-    cacheStrategy.useConfig({
-      prefix: "test-prefix",
-    });
-    expect(cacheStrategy.config.prefix).toBe("test-prefix");
-  });
-
   test("cacheStrategy.staleWhileRevalidate:", async () => {
     let count = 1;
     function addCount() {
