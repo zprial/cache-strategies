@@ -13,7 +13,7 @@
 
 ## WIP
 
-- [x] 缓存过期时间?
+- [x] 缓存过期时间，默认缓存7天，可定制
 - [x] 缓存清理 storage clear
 - [ ] LRU 算法?
 - [x] 微信小程序平台 Adapter
@@ -51,7 +51,7 @@ interface StorageConstructor {
   disableCheckExpiredWhenLaunch?: boolean;
   // 平台适配器
   adapter?: Adapter;
-  // 最大存储时间, 默认永久，单位毫秒
+  // 最大存储时间, 默认7天，单位毫秒
   maxAge?: number;
 }
 interface CacheStrategyConstructor extends StorageConstructor {

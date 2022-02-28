@@ -10,7 +10,7 @@ export interface StorageConstructor {
   disableCheckExpiredWhenLaunch?: boolean;
   // 平台适配器
   adapter?: Adapter;
-  // 最大存储时间, 默认永久，单位毫秒
+  // 最大存储时间, 默认7天，单位毫秒
   maxAge?: number;
 }
 
@@ -18,7 +18,7 @@ const defaultConfig = {
   prefix: "",
   disableCheckExpiredWhenLaunch: false,
   adapter: getDefaultAdapter(),
-  maxAge: 3153600000000, // 100年
+  maxAge: 604800000, // 7天
 };
 
 export default class Storage {
@@ -28,9 +28,9 @@ export default class Storage {
   disableCheckExpiredWhenLaunch: boolean;
   // 平台适配器
   adapter: Adapter;
-  // 最大存储时间, 默认永久，单位毫秒，默认100年后
+  // 最大存储时间, 默认7天，单位毫秒，默认7天后
   maxAge: number;
-  // 过期时间，默认100年后
+  // 过期时间，默认7天后
   expires: number;
   constructor(config?: StorageConstructor) {
     const _config = merge(defaultConfig, config);
