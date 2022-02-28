@@ -78,7 +78,7 @@ export default class Storage {
     const storageItem: StorageItem = {
       key,
       value,
-      expires: expired || this.maxAge,
+      expires: expired || this.expires,
       __hd_strategy: true,
     };
     return this.adapter.setItem(this.getSaveKey(key), storageItem);
