@@ -93,9 +93,6 @@ export default class Storage {
     const keys = await this.adapter.getAllKeys?.();
     const nameSpace = CACHE_PREFIX + this.prefix;
     if (!keys?.length) {
-      console.warn(
-        `[CACHE-STRATEGY]通知：空间${nameSpace}没有缓存数据或者 adapter 不支持 getAllKeys 方法`
-      );
       return [];
     }
     const filteredKeys = keys.filter((key) => key.includes(nameSpace));
