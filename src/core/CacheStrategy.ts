@@ -36,7 +36,10 @@ class CacheStrategy {
     fn: Function,
     args: any[]
   ) {
-    const _config = merge(this.config, customConfig);
+    const _config: Partial<CacheStrategyConfig> = merge(
+      this.config,
+      customConfig
+    );
     const saveKey = _config?.currentSaveKey
       ? _config?.currentSaveKey +
         `/${md5(JSON.stringify(args)).substring(0, 16)}`
@@ -60,7 +63,10 @@ class CacheStrategy {
     val: any
   ) {
     if (await config.validateCache(val)) {
-      this.store.setItem(saveKey, val);
+      this.store.setItem(saveKey, val, {
+        expires: config.expires,
+        maxAge: config.maxAge,
+      });
       return true;
     }
     return false;

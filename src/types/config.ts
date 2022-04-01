@@ -17,4 +17,10 @@ export declare interface CacheStrategyConfig {
   // 只针对 cacheThenUpdate 策略生效，当接口调用成功返回数据后，
   // 如果数据符合 `validateCache` 检验的话会回调
   updateCallback?(newVal: any): any;
+
+  // 有效期相关
+  // 最大存储时间, 默认7天，单位毫秒,优先级高于 expires
+  maxAge?: number;
+  // 过期时间戳
+  expires?: number | Date;
 }
