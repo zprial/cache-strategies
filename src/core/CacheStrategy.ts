@@ -84,7 +84,7 @@ class CacheStrategy {
   staleWhileRevalidate<T extends (...args: any) => any>(
     fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
+  ): (...args: Parameters<typeof fn>) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
       // 优先从缓存中读取
@@ -105,7 +105,7 @@ class CacheStrategy {
   cacheOnly<T extends (...args: any) => any>(
     fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
+  ): (...args: Parameters<typeof fn>) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -117,7 +117,7 @@ class CacheStrategy {
   // 只从接口方法中获取
   apiOnly<T extends (...args: any) => any>(
     fn: T
-  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
+  ): (...args: Parameters<typeof fn>) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const data = await fn(...args);
       return data;
@@ -129,7 +129,7 @@ class CacheStrategy {
   cacheFirst<T extends (...args: any) => any>(
     fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
+  ): (...args: Parameters<typeof fn>) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -152,7 +152,7 @@ class CacheStrategy {
   apiFirst<T extends (...args: any) => any>(
     fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
+  ): (...args: Parameters<typeof fn>) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -174,7 +174,7 @@ class CacheStrategy {
   cacheAndApiRace<T extends (...args: any) => any>(
     fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
+  ): (...args: Parameters<typeof fn>) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
@@ -197,7 +197,7 @@ class CacheStrategy {
   cacheThenUpdate<T extends (...args: any) => any>(
     fn: T,
     config?: Partial<CacheStrategyConfig>
-  ): (...args: any[]) => Promise<AsyncReturnType<T>> {
+  ): (...args: Parameters<typeof fn>) => Promise<AsyncReturnType<T>> {
     return async (...args: any[]) => {
       const { _config, saveKey } = this.mergeConfigAndSavekey(config, fn, args);
 
