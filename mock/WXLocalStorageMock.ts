@@ -4,9 +4,9 @@ export default class WXLocalStorageMock {
     this.store = {};
   }
 
-  clear() {
-    this.store = {};
-  }
+  // clear() {
+  //   this.store = {};
+  // }
 
   getStorageSync(key: string) {
     return this.store[key] || undefined;

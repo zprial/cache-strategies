@@ -1,6 +1,6 @@
 {
   "name": "@hd/cache-strategies",
-  "version": "0.0.31",
+  "version": "1.0.0-alpha.1",
   "description": "",
   "main": "dist/index.js",
   "module": "lib/index.js",
@@ -14,6 +14,7 @@
     "test": "npm run test:coverage && npm run test:badges",
     "clean": "rm -rf dist lib min",
     "pub": "npm run clean && npm run build && npm run build:lib && npm version patch && npm publish",
+    "pub:prerelease": "npm run clean && npm run build && npm run build:lib && npm version prerelease --preid alpha && npm publish --tag alpha",
     "build:lib": "vite build"
   },
   "repository": {

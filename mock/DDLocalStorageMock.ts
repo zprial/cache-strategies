@@ -4,9 +4,9 @@ export default class DDLocalStorageMock {
     this.store = {};
   }
 
-  clear() {
-    this.store = {};
-  }
+  // clear() {
+  //   this.store = {};
+  // }
 
   getStorageSync(param: { key: string }) {
     return { data: this.store[param.key] || undefined };

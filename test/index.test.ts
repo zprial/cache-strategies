@@ -14,13 +14,6 @@ describe("开始测试", () => {
     expect(true).toBe(true);
   });
 
-  test("cacheStrategy.useConfig:", () => {
-    cacheStrategy.useConfig({
-      prefix: "test-prefix",
-    });
-    expect(cacheStrategy.config.prefix).toBe("test-prefix");
-  });
-
   test("cacheStrategy.staleWhileRevalidate:", async () => {
     let count = 1;
     function addCount() {
@@ -204,5 +197,61 @@ describe("开始测试", () => {
     await storage.clear();
     const allKeys2 = await webAdapter.getAllKeys();
     expect(!!allKeys2.find(k => k.includes('web-prefix/'))).toBe(false);
+  })
+
+  test('测试策略过期 cache first:', async () => {
+    let fakeFunc = jest.fn();
+    let count = 1;
+    function addCount() {
+      count += 1;
+      fakeFunc();
+      return count;
+    }
+    const addCountCache = cacheStrategy.cacheFirst(addCount, {
+      maxAge: 1000,
+      currentSaveKey: 'hello add cache first'
+    });
+    const res = await addCountCache();
+    expect(res).toBe(2);
+    expect(fakeFunc).toBeCalledTimes(1);
+    const res2 = await addCountCache();
+    expect(res2).toBe(2);
+    await sleep(800);
+    const res3 = await addCountCache();
+    expect(res3).toBe(2);
+    await sleep(1200);
+    const res4 = await addCountCache();
+    expect(fakeFunc).toBeCalledTimes(2);
+    expect(res4).toBe(3);
+
+  })
+  test('测试策略过期 staleWhileRevalidate:', async () => {
+    let fakeFunc = jest.fn();
+    let count = 1;
+    function addCount() {
+      count += 1;
+      fakeFunc();
+      return count;
+    }
+    
+    const addCountCache2 = cacheStrategy.staleWhileRevalidate(addCount, {
+      maxAge: 1000,
+      currentSaveKey: 'hello add staleWhileRevalidate'
+    });
+    const res1 = await addCountCache2();
+    expect(res1).toBe(2);
+    expect(fakeFunc).toBeCalledTimes(1);
+    const res2 = await addCountCache2();
+    expect(res2).toBe(2);
+    expect(count).toBe(3);
+    expect(fakeFunc).toBeCalledTimes(2);
+    await sleep(800);
+    const res3 = await addCountCache2();
+    expect(res3).toBe(3);
+    expect(count).toBe(4);
+    await sleep(1000);
+    const res4 = await addCountCache2();
+    expect(res4).toBe(5);
+    expect(count).toBe(5);
   })
 });
