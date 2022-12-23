@@ -7,6 +7,8 @@ import {
   ddAdapter,
   MemoryAdapter,
   MapAdapter,
+  wxAsyncAdapter,
+  ddAsyncAdapter,
 } from "../../src";
 import getDefaultAdapter from "../../src/adapters";
 
@@ -20,12 +22,21 @@ describe("adapter 适配测试:", () => {
     global.dd = new DDLocalStorageMock();
   });
 
+  beforeEach(() => {
+    // @ts-ignore
+    wx.clear();
+    // @ts-ignore
+    dd.clear();
+  })
+
   let adapters = [
     webAdapter,
     wxAdapter,
     ddAdapter,
     new MemoryAdapter(),
     new MapAdapter(),
+    wxAsyncAdapter,
+    ddAsyncAdapter,
   ];
   for (let adapter of adapters) {
     describe(`${adapter.type} 适配测试:`, () => {

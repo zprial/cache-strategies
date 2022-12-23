@@ -1,7 +1,7 @@
 import { Adapter } from "../types";
 import webAdapter from "./web";
-import wxAdapter from "./wx_tinyapp";
-import ddAdapter from "./dd_tinyapp";
+import wxAdapter, { wxAsyncAdapter } from "./wx_tinyapp";
+import ddAdapter, { ddAsyncAdapter } from "./dd_tinyapp";
 import { MemoryAdapter, MapAdapter } from "./memory";
 
 export default function getDefaultAdapter(): Adapter | null {
@@ -21,4 +21,12 @@ export default function getDefaultAdapter(): Adapter | null {
   }
 }
 
-export { webAdapter, wxAdapter, ddAdapter, MemoryAdapter, MapAdapter };
+export {
+  webAdapter,
+  wxAdapter,
+  ddAdapter,
+  MemoryAdapter,
+  MapAdapter,
+  wxAsyncAdapter,
+  ddAsyncAdapter,
+};
