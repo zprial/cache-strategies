@@ -1,13 +1,7 @@
-import * as bluebird from 'bluebird'
 import cacheStrategy, { CacheStrategy, webAdapter } from "../src";
 import sleep from "./sleep";
 
 describe("开始测试", () => {
-
-  beforeAll(() => {
-    // @ts-ignore
-    global.Promise.any = bluebird.any
-  });
 
   test("测试入口", () => {
     cacheStrategy;

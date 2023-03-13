@@ -14,8 +14,7 @@
     "test": "npm run test:coverage && npm run test:badges",
     "clean": "rm -rf dist lib min",
     "pub": "npm run clean && npm run build && npm run build:lib && npm version patch && npm publish --access public",
-    "pub:prerelease": "npm run clean && npm run build && npm run build:lib && npm version prerelease --preid alpha && npm publish --tag alpha",
-    "build:lib": "vite build"
+    "pub:prerelease": "npm run clean && npm run build && npm run build:lib && npm version prerelease --preid alpha && npm publish --tag alpha"
   },
   "repository": {
     "type": "git",
@@ -30,23 +29,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.14.3",
-    "@babel/preset-env": "^7.14.4",
-    "@babel/preset-typescript": "^7.13.0",
-    "@types/bluebird": "^3.5.35",
     "@types/jest": "^26.0.23",
     "@types/md5": "^2.3.0",
-    "babel-jest": "^27.0.2",
     "jest": "^27.0.4",
     "jest-coverage-badges": "^1.1.2",
     "jsdom": "^16.6.0",
-    "promise-polyfill": "^8.2.0",
     "ts-jest": "^27.0.3",
-    "typescript": "^4.3.2",
-    "vite": "^2.6.14"
+    "typescript": "^4.3.2"
   },
   "dependencies": {
-    "bluebird": "^3.7.2",
     "lru_map": "^0.4.1",
     "md5": "^2.3.0"
   }
