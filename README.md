@@ -15,7 +15,6 @@
 
 - [x] 缓存过期时间，默认缓存7天，可定制
 - [x] 缓存清理 storage clear
-- [ ] LRU 算法?
 - [x] 微信小程序平台 Adapter
 - [x] web 平台 Adapter
 - [ ] nodejs Adapter?
@@ -65,7 +64,7 @@ interface CacheStrategyConfig {
   // true - 需要缓存，false - 不需要缓存
   validateCache?(val: any): boolean | Promise<boolean>;
   // 此次用来缓存的key，默认会用md5("JSON.stringify(args)_fn.toString()")
-  currentSaveKey?: string;
+  cacheKey?: string;
 
   // 特殊的一些配置，一般只针对某些策略生效
   // 只针对 cacheThenUpdate 策略生效，当接口调用成功返回数据后，

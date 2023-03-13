@@ -1,6 +1,6 @@
 import CacheStrategy from "./core/CacheStrategy";
 import { MemoryAdapter, MapAdapter } from "./adapters/memory";
-import webAdapter from "./adapters/web";
+import webAdapter, { webSessionAdapter } from "./adapters/web";
 import wxAdapter, { wxAsyncAdapter } from "./adapters/wx_tinyapp";
 import ddAdapter, { ddAsyncAdapter } from "./adapters/dd_tinyapp";
 
@@ -10,6 +10,7 @@ export {
   MemoryAdapter,
   MapAdapter,
   webAdapter,
+  webSessionAdapter,
   wxAdapter,
   ddAdapter,
   wxAsyncAdapter,

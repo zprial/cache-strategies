@@ -21,7 +21,7 @@ describe("开始测试", () => {
       return count;
     }
     const addCountCache = cacheStrategy.staleWhileRevalidate(addCount, {
-      currentSaveKey: 'demokey'
+      cacheKey: 'demokey'
     });
     let res = await addCountCache();
     expect(res).toEqual(2);
@@ -209,7 +209,7 @@ describe("开始测试", () => {
     }
     const addCountCache = cacheStrategy.cacheFirst(addCount, {
       maxAge: 1000,
-      currentSaveKey: 'hello add cache first'
+      cacheKey: 'hello add cache first'
     });
     const res = await addCountCache();
     expect(res).toBe(2);
@@ -236,7 +236,7 @@ describe("开始测试", () => {
     
     const addCountCache2 = cacheStrategy.staleWhileRevalidate(addCount, {
       maxAge: 1000,
-      currentSaveKey: 'hello add staleWhileRevalidate'
+      cacheKey: 'hello add staleWhileRevalidate'
     });
     const res1 = await addCountCache2();
     expect(res1).toBe(2);

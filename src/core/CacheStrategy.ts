@@ -40,8 +40,8 @@ class CacheStrategy {
       this.config,
       customConfig
     );
-    const saveKey = _config?.currentSaveKey
-      ? _config?.currentSaveKey +
+    const saveKey = _config?.cacheKey
+      ? _config?.cacheKey +
         `/${md5(JSON.stringify(args)).substring(0, 16)}`
       : `/${md5(`${JSON.stringify(args)}_${fn.toString()}`)}`;
 

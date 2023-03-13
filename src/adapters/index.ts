@@ -1,5 +1,5 @@
 import { Adapter } from "../types";
-import webAdapter from "./web";
+import webAdapter, { webSessionAdapter } from "./web";
 import wxAdapter, { wxAsyncAdapter } from "./wx_tinyapp";
 import ddAdapter, { ddAsyncAdapter } from "./dd_tinyapp";
 import { MemoryAdapter, MapAdapter } from "./memory";
@@ -23,6 +23,7 @@ export default function getDefaultAdapter(): Adapter | null {
 
 export {
   webAdapter,
+  webSessionAdapter,
   wxAdapter,
   ddAdapter,
   MemoryAdapter,

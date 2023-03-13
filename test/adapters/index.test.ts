@@ -9,6 +9,7 @@ import {
   MapAdapter,
   wxAsyncAdapter,
   ddAsyncAdapter,
+  webSessionAdapter
 } from "../../src";
 import getDefaultAdapter from "../../src/adapters";
 
@@ -31,6 +32,7 @@ describe("adapter 适配测试:", () => {
 
   let adapters = [
     webAdapter,
+    webSessionAdapter,
     wxAdapter,
     ddAdapter,
     new MemoryAdapter(),
