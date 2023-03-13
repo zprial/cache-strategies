@@ -1,4 +1,4 @@
-# @hd/cache-strategies
+# @wx-sab/cache-strategies
 
 平台无关的缓存策略
 
@@ -25,7 +25,7 @@
 ### 安装
 
 ```
- yarn add @hd/cache-strategies
+ yarn add @wx-sab/cache-strategies
 ```
 
 ### Api
@@ -84,7 +84,7 @@ interface CacheStrategyConfig {
 ###### Demo
 
 ```javascript
-import cache from "@hd/cache-strategies";
+import cache from "@wx-sab/cache-strategies";
 
 let count = 1;
 function addCount() {
@@ -118,7 +118,7 @@ console.log(count); // -> 3
 ###### Demo
 
 ```javascript
-import cache from "@hd/cache-strategies";
+import cache from "@wx-sab/cache-strategies";
 
 let count = 1;
 function addCount() {
@@ -150,7 +150,7 @@ console.log(count); // -> 2
 ###### Demo
 
 ```javascript
-import cache from "@hd/cache-strategies";
+import cache from "@wx-sab/cache-strategies";
 
 let count = 1;
 function addCount() {
@@ -246,7 +246,7 @@ expect(fakeFunc2).toBeCalledWith(3);
 ###### Demo
 
 ```javascript
-import cache from "@hd/cache-strategies";
+import cache from "@wx-sab/cache-strategies";
 let count = 1;
 function addCount() {
   count += 1;
@@ -297,7 +297,7 @@ console.log(count); // -> 2
 工具默认走各个平台的永久缓存，如 web 端的 `localStorage`, 微信小程序端的 `storage`, 工具包暴露了[各个平台的适配器](./src/adapters)，你可以选用合适的适配器以满足需求。
 
 ```typescript
-import { CacheStrategy, MemoryAdapter, wxAsyncAdapter } from "@hd/cache-strategies";
+import { CacheStrategy, MemoryAdapter, wxAsyncAdapter } from "@wx-sab/cache-strategies";
 
 // 使用内存缓存
 const cacheStrategy = new CacheStrategy({
