@@ -66,7 +66,7 @@ describe('测试 storage 功能准确', () => {
     await adapters.setItem(CACHE_PREFIX + prefix, {
       expires: new Date('2022-02-28 12:17:30'),
       value: 'hello world',
-      __hd_strategy: true,
+      __cache_strategy: true,
     });
     expect((await adapters.getItem(CACHE_PREFIX + prefix)).value).toEqual('hello world');
     const storage = new Storage({

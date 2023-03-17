@@ -57,7 +57,7 @@ export default class Storage {
       await this.removeItem(key);
       return null;
     }
-    if (value?.__hd_strategy) {
+    if (value?.__cache_strategy) {
       return value?.value;
     }
     return value;
@@ -79,7 +79,7 @@ export default class Storage {
       key,
       value,
       expires: expired || this.expires,
-      __hd_strategy: true,
+      __cache_strategy: true,
     };
     return this.adapter.setItem(this.getSaveKey(key), storageItem);
   }
